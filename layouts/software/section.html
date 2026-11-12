@@ -1,0 +1,29 @@
+{{ define "main" }}
+<section class="page-hero">
+  <div class="wrap">
+    <h1>{{ .Title }}</h1>
+    <div class="lead">{{ .Content }}</div>
+  </div>
+</section>
+
+{{- with .RegularPages }}
+<section class="section">
+  <div class="wrap">
+    <h2 class="section-title">Applications</h2>
+    {{- range . }}
+    {{ partial "product-card.html" . }}
+    {{- end }}
+  </div>
+</section>
+{{- end }}
+
+<section class="section" id="open-source">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">Open source</h2>
+      <p>Published on <a href="https://github.com/wardle">GitHub</a>, with libraries on <a href="https://clojars.org/groups/com.eldrix">Clojars</a> under <code>com.eldrix</code>.</p>
+    </div>
+    {{ partial "opensource.html" dict }}
+  </div>
+</section>
+{{ end }}

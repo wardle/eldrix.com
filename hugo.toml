@@ -1,0 +1,32 @@
+baseURL = "https://eldrix.com/"
+locale = "en-GB"
+title = "Eldrix"
+disableKinds = ["taxonomy", "term", "rss"]
+enableRobotsTXT = true
+
+[params]
+  description = "Eldrix Ltd makes electronic patient record software and open-source tools for health and care data."
+  github = "https://github.com/wardle"
+
+  # Contact address. Leave empty to hide the Contact link and call-to-action buttons.
+  email = "mark@eldrix.co.uk"
+
+  # UK companies must show their registered name, number, place of registration
+  # and registered office address on their website
+  # (Company, Limited Liability Partnership and Business (Names and Trading
+  # Disclosures) Regulations 2015, regs 24-25). Shown in the footer and
+  # on the About page when set.
+  company_name = "Eldrix Ltd"
+  company_number = "09049500"
+  registered_in = "England and Wales"
+  registered_office = ""
+
+[[menus.main]]
+  name = "Software"
+  pageRef = "/software"
+  weight = 10
+
+[[menus.main]]
+  name = "About"
+  pageRef = "/about"
+  weight = 20

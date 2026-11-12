@@ -1,0 +1,23 @@
+{{- $p := site.Params }}
+{{- if or $p.email $p.company_number $p.registered_office }}
+<section class="contact" id="contact">
+  <h2>Contact</h2>
+  {{- with $p.email }}
+  <p><a href="mailto:{{ . }}">{{ . }}</a></p>
+  {{- end }}
+  {{- if or $p.company_number $p.registered_office }}
+  <dl>
+    <dt>Company</dt>
+    <dd>{{ $p.company_name }}</dd>
+    {{- with $p.company_number }}
+    <dt>Company number</dt>
+    <dd>{{ . }} (registered in {{ $p.registered_in }})</dd>
+    {{- end }}
+    {{- with $p.registered_office }}
+    <dt>Registered office</dt>
+    <dd>{{ . }}</dd>
+    {{- end }}
+  </dl>
+  {{- end }}
+</section>
+{{- end }}

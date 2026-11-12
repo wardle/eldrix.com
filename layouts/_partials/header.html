@@ -1,0 +1,17 @@
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="wordmark" href="{{ "/" | relURL }}" aria-label="{{ site.Title }} home"><span>eldrix</span></a>
+    <nav aria-label="Main">
+      <ul>
+        {{- $current := . }}
+        {{- range site.Menus.main }}
+          {{- $active := or ($current.IsMenuCurrent "main" .) (and .Page ($current.IsDescendant .Page)) }}
+        <li><a href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a></li>
+        {{- end }}
+        {{- with site.Params.email }}
+        <li><a href="mailto:{{ . }}">Contact</a></li>
+        {{- end }}
+      </ul>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,37 @@
+# Open-source projects listed on the home page (first six) and /software/.
+projects:
+  - name: hermes
+    description: SNOMED CT terminology server and library, with inference, fast free-text search, cross-maps, compositional grammar and the expression constraint language.
+    url: https://github.com/wardle/hermes
+    coordinate: com.eldrix/hermes
+  - name: hades
+    description: An HL7 FHIR terminology server built on hermes.
+    url: https://github.com/wardle/hades
+  - name: dmd
+    description: The UK NHS dictionary of medicines and devices (dm+d), as a library and microservice.
+    url: https://github.com/wardle/dmd
+    coordinate: com.eldrix/dmd
+  - name: codelists
+    description: Build code lists from a combination of SNOMED CT ECL, ICD-10 and ATC codes.
+    url: https://github.com/wardle/codelists
+    coordinate: com.eldrix/codelists
+  - name: clods
+    description: UK organisational data services (ODS), as a library, REST server and FHIR server.
+    url: https://github.com/wardle/clods
+    coordinate: com.eldrix/clods
+  - name: trud
+    description: Automated downloads of UK reference data from NHS TRUD.
+    url: https://github.com/wardle/trud
+    coordinate: com.eldrix/trud
+  - name: nhspd
+    description: The NHS postcode directory, linking every UK postcode to health, care and administrative geographies.
+    url: https://github.com/wardle/nhspd
+    coordinate: com.eldrix/nhspd
+  - name: nhs-number
+    description: Validation, formatting and generation of UK NHS numbers, for Clojure and ClojureScript.
+    url: https://github.com/wardle/nhs-number
+    coordinate: com.eldrix/nhs-number
+  - name: deprivare
+    description: UK indices of deprivation.
+    url: https://github.com/wardle/deprivare
+    coordinate: com.eldrix/deprivare

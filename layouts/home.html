@@ -1,0 +1,32 @@
+{{ define "main" }}
+<section class="hero">
+  <div class="wrap">
+    {{- with .Params.eyebrow }}<p class="eyebrow">{{ . }}</p>{{ end }}
+    <h1>{{ .Params.headline | default .Title }}</h1>
+    <div class="lead">{{ .Content }}</div>
+  </div>
+</section>
+
+{{- $products := where (site.GetPage "/software").RegularPages "Params.featured" true }}
+{{- with $products }}
+<section class="section">
+  <div class="wrap">
+    <h2 class="section-title">Applications</h2>
+    {{- range . }}
+    {{ partial "product-card.html" . }}
+    {{- end }}
+  </div>
+</section>
+{{- end }}
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">Open source</h2>
+      <p>Libraries and services for health and care data, written in Clojure. Our applications are built on them, and anyone can use them.</p>
+    </div>
+    {{ partial "opensource.html" (dict "limit" 6) }}
+    <p class="more"><a href="{{ "/software/#open-source" | relURL }}">All open-source projects →</a></p>
+  </div>
+</section>
+{{ end }}

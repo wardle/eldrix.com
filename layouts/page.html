@@ -1,0 +1,17 @@
+{{ define "main" }}
+<section class="page-hero">
+  <div class="wrap">
+    <h1>{{ .Title }}</h1>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <div class="prose">
+      {{ .Content }}
+      {{- if .Params.show_contact }}
+      {{ partial "contact.html" . }}
+      {{- end }}
+    </div>
+  </div>
+</section>
+{{ end }}

@@ -1,0 +1,23 @@
+{{- $p := site.Params }}
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-company">
+      <p class="footer-name">{{ $p.company_name }}</p>
+      {{- with $p.company_number }}
+      <p>Registered in {{ $p.registered_in }}, company number {{ . }}.</p>
+      {{- end }}
+      {{- with $p.registered_office }}
+      <p>Registered office: {{ . }}</p>
+      {{- end }}
+    </div>
+    <ul class="footer-links">
+      {{- with $p.email }}
+      <li><a href="mailto:{{ . }}">{{ . }}</a></li>
+      {{- end }}
+      {{- with $p.github }}
+      <li><a href="{{ . }}">GitHub</a></li>
+      {{- end }}
+      <li>© {{ now.Year }} {{ $p.company_name }}</li>
+    </ul>
+  </div>
+</footer>

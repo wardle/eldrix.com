@@ -1,0 +1,69 @@
+{{- /*
+Context: a product page bundle. Renders front matter `screens`: each has `src`
+(path inside the bundle), `title`, `caption`, `alt` and optional `device`
+(`phone`, or `document` for a page of a document). An optional `file` (path
+inside the bundle) is offered as a download, labelled by `file_title`; the
+image then links to the file. Entries whose image is missing are skipped, so
+the section only appears once screenshots exist. Images are resized to WebP
+at several widths, never upscaled.
+*/ -}}
+{{- $page := . }}
+{{- $found := slice }}
+{{- range .Params.screens }}
+  {{- with $page.Resources.Get .src }}{{ $found = $found | append true }}{{ end }}
+{{- end }}
+{{- if $found }}
+<section class="section">
+  <div class="wrap">
+    <h2 class="section-title">Screens</h2>
+    <div class="screens">
+      {{- range .Params.screens }}
+      {{- $s := . }}
+      {{- with $page.Resources.Get .src }}
+      {{- $img := . }}
+      {{- $phone := eq $s.device "phone" }}
+      {{- $document := eq $s.device "document" }}
+      {{- $narrow := or $phone $document }}
+      {{- $widths := cond $narrow (slice 400 800 1200) (slice 800 1400 2000) }}
+      {{- $srcset := slice }}
+      {{- $largest := false }}
+      {{- range $widths }}
+        {{- if le . $img.Width }}
+          {{- $r := $img.Resize (printf "%dx webp q82" .) }}
+          {{- $srcset = $srcset | append (printf "%s %dw" $r.RelPermalink .) }}
+          {{- $largest = $r }}
+        {{- end }}
+      {{- end }}
+      {{- if not $largest }}
+        {{- $largest = $img.Resize (printf "%dx webp q82" $img.Width) }}
+        {{- $srcset = $srcset | append (printf "%s %dw" $largest.RelPermalink $img.Width) }}
+      {{- end }}
+      {{- $file := false }}
+      {{- with $s.file }}{{ with $page.Resources.Get . }}{{ $file = . }}{{ end }}{{ end }}
+      {{- $href := $largest.RelPermalink }}
+      {{- with $file }}{{ $href = .RelPermalink }}{{ end }}
+      {{- $sizes := "(max-width: 1080px) 100vw, 1032px" }}
+      {{- if $phone }}{{ $sizes = "(max-width: 600px) 80vw, 320px" }}{{ end }}
+      {{- if $document }}{{ $sizes = "(max-width: 760px) 90vw, 420px" }}{{ end }}
+      <figure class="screen{{ if $phone }} screen-phone{{ end }}{{ if $document }} screen-document{{ end }}">
+        <a class="screen-frame" href="{{ $href }}">
+          <img src="{{ $largest.RelPermalink }}" srcset="{{ delimit $srcset ", " }}"
+               sizes="{{ $sizes }}"
+               width="{{ $largest.Width }}" height="{{ $largest.Height }}"
+               alt="{{ $s.alt | default $s.title }}" loading="lazy" decoding="async">
+        </a>
+        <figcaption>
+          <span class="screen-title">{{ $s.title }}</span>
+          {{- with $s.caption }}<p>{{ . }}</p>{{ end }}
+          {{- with $file }}
+          <p class="screen-file"><a href="{{ .RelPermalink }}" download>{{ $s.file_title | default "Download" }}</a>
+            <span>{{ upper .MediaType.SubType }}, {{ lang.FormatNumber 0 (div (float (len .Content)) 1024) }} KB</span></p>
+          {{- end }}
+        </figcaption>
+      </figure>
+      {{- end }}
+      {{- end }}
+    </div>
+  </div>
+</section>
+{{- end }}

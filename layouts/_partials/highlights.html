@@ -1,0 +1,9 @@
+{{- /* Context: dict "page" <product page> "detail" <bool>. Renders the page's `highlights`. */ -}}
+<ul class="highlights">
+  {{- range .page.Params.highlights }}
+  <li>
+    <span class="highlight-title">{{ .title }}</span>
+    {{- if $.detail }}<p>{{ .text }}</p>{{ end }}
+  </li>
+  {{- end }}
+</ul>

@@ -1,0 +1,17 @@
+{{- /* Context: dict "page" <product page> "detail" <bool>. Renders the page's `steps` and optional `outcome`. */ -}}
+{{- $page := .page }}
+{{- $detail := .detail }}
+<ol class="steps{{ if $detail }} steps-detail{{ end }}">
+  {{- range $page.Params.steps }}
+  <li>
+    <span class="step-title">{{ .title }}</span>
+    {{- if $detail }}<p>{{ .text }}</p>{{ end }}
+  </li>
+  {{- end }}
+  {{- with $page.Params.outcome }}
+  <li class="step-outcome">
+    <span class="step-title">{{ .title }}</span>
+    {{- if $detail }}<p>{{ .text }}</p>{{ end }}
+  </li>
+  {{- end }}
+</ol>

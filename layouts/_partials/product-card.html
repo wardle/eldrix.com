@@ -1,0 +1,18 @@
+<article class="product-card">
+  <div class="product-card-head">
+    <div>
+      <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      <p class="product-tagline">{{ .Params.tagline }}</p>
+      {{- with .Params.badge }}
+      <p class="badge">{{ . }}</p>
+      {{- end }}
+    </div>
+    <a class="button" href="{{ .RelPermalink }}">Find out more</a>
+  </div>
+  {{- with .Params.highlights }}
+  {{ partial "highlights.html" (dict "page" $ "detail" true) }}
+  {{- end }}
+  {{- with .Params.steps }}
+  {{ partial "steps.html" (dict "page" $ "detail" false) }}
+  {{- end }}
+</article>

@@ -1,0 +1,14 @@
+{{- /* Context: dict with optional "limit". Lists projects from data/opensource.yaml. */ -}}
+{{- $items := hugo.Data.opensource.projects }}
+{{- with .limit }}{{ $items = first . $items }}{{ end }}
+<ul class="cards">
+  {{- range $items }}
+  <li class="card">
+    <h3><a href="{{ .url }}">{{ .name }}</a></h3>
+    <p>{{ .description }}</p>
+    {{- with .coordinate }}
+    <code>{{ . }}</code>
+    {{- end }}
+  </li>
+  {{- end }}
+</ul>

@@ -1,0 +1,57 @@
+{{ define "main" }}
+<section class="page-hero">
+  <div class="wrap">
+    <p class="eyebrow">
+      <a href="{{ "/software/" | relURL }}">Software</a>
+      {{- with .Params.part_of }}{{ with site.GetPage . }} · <a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ end }}{{ end }}
+    </p>
+    <h1>{{ .Title }}</h1>
+    <p class="lead">{{ .Params.tagline }}</p>
+    {{- with .Params.badge }}
+    <p class="badge">{{ . }}</p>
+    {{- end }}
+  </div>
+</section>
+
+{{- with .Params.highlights }}
+<section class="section">
+  <div class="wrap">
+    <h2 class="section-title">At a glance</h2>
+    {{ partial "highlights.html" (dict "page" $ "detail" true) }}
+  </div>
+</section>
+{{- end }}
+
+{{- with .Params.steps }}
+<section class="section">
+  <div class="wrap">
+    <h2 class="section-title">How it works</h2>
+    {{ partial "steps.html" (dict "page" $ "detail" true) }}
+  </div>
+</section>
+{{- end }}
+
+{{- partial "screens.html" . }}
+
+<section class="section">
+  <div class="wrap">
+    <div class="prose">
+      {{ .Content }}
+    </div>
+  </div>
+</section>
+
+{{- with site.Params.email }}
+<section class="section">
+  <div class="wrap">
+    <div class="cta">
+      <div>
+        <h2>{{ $.Params.cta_title | default (printf "Use %s in your service" $.Title) }}</h2>
+        <p>Talk to us about deployment, integration with your existing systems, and support.</p>
+      </div>
+      <a class="button" href="mailto:{{ . }}?subject={{ printf "%s enquiry" $.Title }}">Get in touch</a>
+    </div>
+  </div>
+</section>
+{{- end }}
+{{ end }}
