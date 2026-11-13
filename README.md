@@ -48,13 +48,26 @@ The body is Markdown.
 
 ## Domain
 
-DNS for eldrix.com is at Gandi. GitHub Pages needs:
+eldrix.com is registered at Gandi. Its DNS is at Cloudflare (free plan), which
+proxies the site and provides the HTTPS certificate. GitHub never issued its own
+Pages certificate for the domain: it stayed at `authorization_created` for over
+24 hours in November 2026.
 
-| Name | Type | Value |
-|---|---|---|
-| `@` | A | 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153 |
-| `@` | AAAA | 2606:50c0:8000::153, 2606:50c0:8001::153, 2606:50c0:8002::153, 2606:50c0:8003::153 |
-| `www` | CNAME | wardle.github.io. |
+Cloudflare records:
 
-Set the custom domain to `eldrix.com` in the repository's Settings → Pages, and
-tick "Enforce HTTPS" once the certificate is issued.
+| Name | Type | Value | Proxy |
+|---|---|---|---|
+| `@` | A | 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153 | on |
+| `@` | AAAA | 2606:50c0:8000::153, 2606:50c0:8001::153, 2606:50c0:8002::153, 2606:50c0:8003::153 | on |
+| `www` | CNAME | wardle.github.io | on |
+| `@` | TXT | `OSSRH-81090` (Maven Central verification) | |
+| `@` | TXT | `clojars wardle` (Clojars verification) | |
+| `_github-pages-challenge-wardle` | TXT | GitHub Pages domain verification | |
+| `@` | TXT | `v=spf1 -all` (no mail is sent from eldrix.com) | |
+| `_dmarc` | TXT | `v=DMARC1; p=reject` | |
+
+Cloudflare settings: SSL/TLS mode **Full** (not strict, because GitHub presents
+its `*.github.io` certificate) and **Always Use HTTPS** on.
+
+The repository's Settings → Pages has the custom domain `eldrix.com`, with
+"Enforce HTTPS" off. Cloudflare does the redirect to HTTPS.
